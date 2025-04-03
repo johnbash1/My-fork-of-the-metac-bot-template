@@ -93,7 +93,7 @@ class TemplateForecaster(ForecastBot):
     ) -> str:
         prompt = clean_indents(
             f"""
-           You are an assistant to a superforecaster. The superforecaster is intending to forecast on the question:
+           You are an assistant to a superforecaster. The superforecaster will forecast on the question:
             Question:
             {question}
             Please generate a concise but detailed rundown of the most relevant news to help the superforecaster. 
