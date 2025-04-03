@@ -93,13 +93,15 @@ class TemplateForecaster(ForecastBot):
     ) -> str:
         prompt = clean_indents(
             f"""
-            You are an assistant to a superforecaster.
-            The superforecaster will give you a question they intend to forecast on.
-            To be a great assistant, you generate a concise but detailed rundown of the most relevant news, including if the question would resolve Yes or No based on current information.
-            You do not produce forecasts yourself.
-
+           You are an assistant to a superforecaster. The superforecaster is intending to forecast on the question:
             Question:
             {question}
+            Please generate a concise but detailed rundown of the most relevant news to help the superforecaster. 
+            Remember to put a lot of emphasis on the base rate: how often does something like this ACTUALLY occur? 
+            Avoid base rate neglect. In compiling the information, do not create a forecast yourself; that will be the superforecaster's job.
+
+
+            
             """
         )  # NOTE: The metac bot in Q1 put everything but the question in the system prompt.
         if use_open_router:
@@ -164,8 +166,8 @@ class TemplateForecaster(ForecastBot):
             (c) A brief description of a scenario that results in a No outcome.
             (d) A brief description of a scenario that results in a Yes outcome.
 
-            You write your rationale remembering that good forecasters put extra weight on the status quo outcome since the world changes slowly most of the time.
-
+You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? 
+Start with the base rate and adjust from there. 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
         )
@@ -211,7 +213,7 @@ class TemplateForecaster(ForecastBot):
             (b) The status quo outcome if nothing changed.
             (c) A description of an scenario that results in an unexpected outcome.
 
-            You write your rationale remembering that (1) good forecasters put extra weight on the status quo outcome since the world changes slowly most of the time, and (2) good forecasters leave some moderate probability on most options to account for unexpected outcomes.
+            You write your rationale remembering that (1) good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? and (2) good forecasters are confident (you have been underconfident in the past, so be bold!) 
 
             The last thing you write is your final probabilities for the N options in this order {question.options} as:
             Option_A: Probability_A
@@ -276,8 +278,8 @@ class TemplateForecaster(ForecastBot):
             (e) A brief description of an unexpected scenario that results in a low outcome.
             (f) A brief description of an unexpected scenario that results in a high outcome.
 
-            You remind yourself that good forecasters are humble and set wide 90/10 confidence intervals to account for unknown unknowns.
-
+            You remind yourself that good forecasters think about base rates, which means they look to past results as a clue of how the future will go. Also, be bold! If the data and analysis suggest something is a strong probability, then commit to it and don't be afraid of being wrong. 
+            
             The last thing you write is your final answer as:
             "
             Percentile 10: XX
