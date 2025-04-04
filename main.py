@@ -144,11 +144,7 @@ class TemplateForecaster(ForecastBot):
             Your interview question is:
             {question.question_text}
 
-            Question background:
-            {question.background_info}
-
-
-            This question's outcome will be determined by the specific criteria below. These criteria have not yet been satisfied:
+             Resolution Criteria:
             {question.resolution_criteria}
 
             {question.fine_print}
@@ -165,8 +161,7 @@ class TemplateForecaster(ForecastBot):
             (c) A brief description of a scenario that results in a No outcome.
             (d) A brief description of a scenario that results in a Yes outcome.
 
-You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? 
-Start with the base rate and adjust from there. 
+You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? Start with the base rate and adjust from there. 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
         )
@@ -277,7 +272,7 @@ Start with the base rate and adjust from there.
             (e) A brief description of an unexpected scenario that results in a low outcome.
             (f) A brief description of an unexpected scenario that results in a high outcome.
 
-            You remind yourself that good forecasters think about base rates, which means they look to past results as a clue of how the future will go. Also, be bold! If the data and analysis suggest something is a strong probability, then commit to it and don't be afraid of being wrong. 
+            You remind yourself that good forecasters think about base rates, which means they look to past results as a clue of how the future will go.  
             
             The last thing you write is your final answer as:
             "
