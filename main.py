@@ -161,7 +161,11 @@ class TemplateForecaster(ForecastBot):
             (c) A brief description of a scenario that results in a No outcome.
             (d) A brief description of a scenario that results in a Yes outcome.
 
-You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? Start with the base rate and adjust from there. 
+You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? 
+Start with the base rate and adjust from there. 
+
+Now you take your probability and you extremize it. The extremizing formula is (Probability squared/(probability squared + (1-probability)^2)
+
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
         )
@@ -207,7 +211,7 @@ You write your rationale remembering that good forecasters put extra weight on t
             (b) The status quo outcome if nothing changed.
             (c) A description of an scenario that results in an unexpected outcome.
 
-            You write your rationale remembering that (1) good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? and (2) good forecasters are confident (you have been underconfident in the past, so be bold!) 
+            You write your rationale remembering that good forecasters put extra weight on the base rate. The world has a status quo bias.  
 
             The last thing you write is your final probabilities for the N options in this order {question.options} as:
             Option_A: Probability_A
