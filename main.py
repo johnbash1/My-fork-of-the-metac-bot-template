@@ -211,7 +211,7 @@ Now you take your probability and you extremize it. The extremizing formula is (
             (b) The status quo outcome if nothing changed.
             (c) A description of an scenario that results in an unexpected outcome.
 
-            You write your rationale remembering that good forecasters put extra weight on the base rate. The world has a status quo bias.  
+            You write your rationale remembering that (1) good forecasters put extra weight on the status quo outcome since the world changes slowly most of the time, and (2) good forecasters leave some moderate probability on most options to account for unexpected outcomes.
 
             The last thing you write is your final probabilities for the N options in this order {question.options} as:
             Option_A: Probability_A
