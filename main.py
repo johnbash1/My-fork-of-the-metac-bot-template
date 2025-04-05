@@ -149,7 +149,6 @@ class TemplateForecaster(ForecastBot):
 
             {question.fine_print}
 
-
             Your research assistant says:
             {research}
 
@@ -165,6 +164,8 @@ You write your rationale remembering that good forecasters put extra weight on t
 Start with the base rate and adjust from there. 
 
 Now you take your probability and you extremize it. The extremizing formula is (Probability^1.5)/(probability^1.5 + (1-probability)^1.5)
+
+Do not revise the extremized probability downward or upward afterward. The final answer should reflect the extremized result.
 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
