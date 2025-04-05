@@ -164,7 +164,7 @@ class TemplateForecaster(ForecastBot):
 You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? 
 Start with the base rate and adjust from there. 
 
-Now you take your probability and you extremize it. The extremizing formula is (Probability squared/(probability squared + (1-probability)^2)
+Now you take your probability and you extremize it. The extremizing formula is (Probability^1.5)/(probability^1.5 + (1-probability)^1.5)
 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
