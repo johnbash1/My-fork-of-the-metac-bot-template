@@ -125,11 +125,12 @@ class TemplateForecaster(ForecastBot):
             num_sites_per_search=10,
         )
         prompt = (
-            "You are an assistant to a superforecaster. The superforecaster will give"
-            "you a question they intend to forecast on. To be a great assistant, you generate"
-            "a concise but detailed rundown of the most relevant news, including if the question"
-            "would resolve Yes or No based on current information. You do not produce forecasts yourself."
-            f"\n\nThe question is: {question}"
+            "You are an assistant to a superforecaster. The superforecaster will forecast this:"
+             f"\n\nThe question is: {question}"
+            "Please generate a concise but detailed rundown of the most relevant news to help the superforecaster."
+            "Remember to put a lot of emphasis on the base rate: how often does something like this ACTUALLY occur?"
+            "Avoid base rate neglect. In compiling the information, do not create a forecast yourself; that will be the superforecaster's job."
+           
         )  # You can ask the searcher to filter by date, exclude/include a domain, and run specific searches for finding sources vs finding highlights within a source
         response = await searcher.invoke(prompt)
         return response
