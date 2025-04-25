@@ -324,17 +324,6 @@ Do not revise the extremized probability downward or upward afterward. The final
 from typing import List
 from forecasting_tools import ReasonedPrediction
 
-class ExtremeForecaster(TemplateForecaster):
-    def aggregate_predictions(
-        self,
-        raw_forecasts: List[ReasonedPrediction]
-    ) -> ReasonedPrediction:
-        # pick the forecast farthest from 0.5 (i.e. closest to 0 or 1)
-        return max(
-            raw_forecasts,
-            key=lambda rp: abs(rp.prediction_value - 0.5)
-        )
-
 if __name__ == "__main__":
     logging.basicConfig(
         level=logging.INFO,
