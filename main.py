@@ -321,8 +321,6 @@ Do not revise the extremized probability downward or upward afterward. The final
             )
         return upper_bound_message, lower_bound_message
 
-from typing import List
-from forecasting_tools import ReasonedPrediction
 
 if __name__ == "__main__":
     logging.basicConfig(
