@@ -93,20 +93,19 @@ class TemplateForecaster(ForecastBot):
     ) -> str:
         prompt = clean_indents(
             f"""
-           You are an assistant to a superforecaster. The superforecaster will forecast on this question:
+            You are an assistant to a superforecaster.
+            The superforecaster will give you a question they intend to forecast on.
+            To be a great assistant, you generate a concise but detailed rundown of the most relevant news, including if the question would resolve Yes or No based on current information.
+            You do not produce forecasts yourself.
+
+            Question:
             {question}
-            Please generate a concise but detailed rundown of the most relevant news to help the superforecaster. 
-            Remember to put a lot of emphasis on the base rate: how often does something like this ACTUALLY occur? 
-            Avoid base rate neglect. In compiling the information, do not create a forecast yourself; that will be the superforecaster's job.
-
-
-            
             """
         )  # NOTE: The metac bot in Q1 put everything but the question in the system prompt.
         if use_open_router:
             model_name = "openrouter/perplexity/sonar-reasoning"
         else:
-            model_name = "perplexity/sonar-pro"  # perplexity/sonar-reasoning and perplexity/sonar are cheaper, but do only 1 search.
+            model_name = "perplexity/sonar-pro"  # perplexity/sonar-reasoning and perplexity/sonar are cheaper, but do only 1 search
         model = GeneralLlm(
             model=model_name,
             temperature=0.1,
@@ -144,10 +143,15 @@ class TemplateForecaster(ForecastBot):
             Your interview question is:
             {question.question_text}
 
-             Resolution Criteria:
+            Question background:
+            {question.background_info}
+
+
+            This question's outcome will be determined by the specific criteria below. These criteria have not yet been satisfied:
             {question.resolution_criteria}
 
             {question.fine_print}
+
 
             Your research assistant says:
             {research}
@@ -160,12 +164,7 @@ class TemplateForecaster(ForecastBot):
             (c) A brief description of a scenario that results in a No outcome.
             (d) A brief description of a scenario that results in a Yes outcome.
 
-You write your rationale remembering that good forecasters put extra weight on the base rate; i.e., how often does an event like this REALLY occur? 
-Start with the base rate and adjust from there. 
-
-Now you take your probability and you extremize it. The extremizing formula is (Probability^1.5)/(probability^1.5 + (1-probability)^1.5)
-
-Do not revise the extremized probability downward or upward afterward. The final answer should reflect the extremized result.
+            You write your rationale remembering that good forecasters put extra weight on the status quo outcome since the world changes slowly most of the time.
 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
@@ -277,8 +276,8 @@ Do not revise the extremized probability downward or upward afterward. The final
             (e) A brief description of an unexpected scenario that results in a low outcome.
             (f) A brief description of an unexpected scenario that results in a high outcome.
 
-            You remind yourself that good forecasters think about base rates, which means they look to past results as a clue of how the future will go.  
-            
+            You remind yourself that good forecasters are humble and set wide 90/10 confidence intervals to account for unknown unknowns.
+
             The last thing you write is your final answer as:
             "
             Percentile 10: XX
