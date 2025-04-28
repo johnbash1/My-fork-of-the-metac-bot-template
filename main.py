@@ -61,9 +61,8 @@ class TemplateForecaster(ForecastBot):
     _max_concurrent_questions = 2  # Set this to whatever works for your search-provider/ai-model rate limits
     _concurrency_limiter = asyncio.Semaphore(_max_concurrent_questions)
 
-   async def run_research(self, question: MetaculusQuestion) -> str:
-    async with self._concurrency_limiter:
-        try:
+    async def run_research(self, question: MetaculusQuestion) -> str:
+        async with self._concurrency_limiter:
             research = ""
             if os.getenv("ASKNEWS_CLIENT_ID") and os.getenv("ASKNEWS_SECRET"):
                 research = await AskNewsSearcher().get_formatted_news_async(
@@ -88,12 +87,7 @@ class TemplateForecaster(ForecastBot):
                 f"Found Research for URL {question.page_url}:\n{research}"
             )
             return research
-        except Exception as e:
-            logger.error(
-                f"Error while processing question URL {question.page_url}: {str(e)}"
-            )
-            return ""
-            
+
     async def _call_perplexity(
         self, question: str, use_open_router: bool = False
     ) -> str:
@@ -131,12 +125,11 @@ class TemplateForecaster(ForecastBot):
             num_sites_per_search=10,
         )
         prompt = (
-            "You are an assistant to a superforecaster. The superforecaster will forecast this:"
-             f"\n\nThe question is: {question}"
-            "Please generate a concise but detailed rundown of the most relevant news to help the superforecaster."
-            "Remember to put a lot of emphasis on the base rate: how often does something like this ACTUALLY occur?"
-            "Avoid base rate neglect. In compiling the information, do not create a forecast yourself; that will be the superforecaster's job."
-           
+            "You are an assistant to a superforecaster. The superforecaster will give"
+            "you a question they intend to forecast on. To be a great assistant, you generate"
+            "a concise but detailed rundown of the most relevant news, including if the question"
+            "would resolve Yes or No based on current information. You do not produce forecasts yourself."
+            f"\n\nThe question is: {question}"
         )  # You can ask the searcher to filter by date, exclude/include a domain, and run specific searches for finding sources vs finding highlights within a source
         response = await searcher.invoke(prompt)
         return response
