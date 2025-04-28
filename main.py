@@ -61,8 +61,9 @@ class TemplateForecaster(ForecastBot):
     _max_concurrent_questions = 2  # Set this to whatever works for your search-provider/ai-model rate limits
     _concurrency_limiter = asyncio.Semaphore(_max_concurrent_questions)
 
-    async def run_research(self, question: MetaculusQuestion) -> str:
-        async with self._concurrency_limiter:
+   async def run_research(self, question: MetaculusQuestion) -> str:
+    async with self._concurrency_limiter:
+        try:
             research = ""
             if os.getenv("ASKNEWS_CLIENT_ID") and os.getenv("ASKNEWS_SECRET"):
                 research = await AskNewsSearcher().get_formatted_news_async(
@@ -87,7 +88,12 @@ class TemplateForecaster(ForecastBot):
                 f"Found Research for URL {question.page_url}:\n{research}"
             )
             return research
-
+        except Exception as e:
+            logger.error(
+                f"Error while processing question URL {question.page_url}: {str(e)}"
+            )
+            return ""
+            
     async def _call_perplexity(
         self, question: str, use_open_router: bool = False
     ) -> str:
