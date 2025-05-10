@@ -93,13 +93,14 @@ class TemplateForecaster(ForecastBot):
     ) -> str:
         prompt = clean_indents(
             f"""
-            You are an assistant to a superforecaster.
-            The superforecaster will give you a question they intend to forecast on.
-            To be a great assistant, you generate a concise but detailed rundown of the most relevant news, including if the question would resolve Yes or No based on current information.
-            You do not produce forecasts yourself.
-
-            Question:
+            You are an assistant to a superforecaster. The superforecaster intends to forecast on the question:
             {question}
+
+            Generate a concise but detailed rundown of the most relevant news and resources to help the superforecaster. 
+            Remember to put a lot of emphasis on the base rate: how often does something like this ACTUALLY occur? 
+            Avoid base rate neglect. 
+            In compiling the information, do not create a forecast yourself; that will be the superforecaster's job.
+            
             """
         )  # NOTE: The metac bot in Q1 put everything but the question in the system prompt.
         if use_open_router:
@@ -143,10 +144,6 @@ class TemplateForecaster(ForecastBot):
             Your interview question is:
             {question.question_text}
 
-            Question background:
-            {question.background_info}
-
-
             This question's outcome will be determined by the specific criteria below. These criteria have not yet been satisfied:
             {question.resolution_criteria}
 
@@ -164,7 +161,11 @@ class TemplateForecaster(ForecastBot):
             (c) A brief description of a scenario that results in a No outcome.
             (d) A brief description of a scenario that results in a Yes outcome.
 
-            You write your rationale remembering that good forecasters put extra weight on the status quo outcome since the world changes slowly most of the time.
+            You write your rationale using the best superforecasting principles. 
+            Now you take your probability and you extremize it. The extremizing formula 
+            is (Probability^1.5)/(probability^1.5 + (1-probability)^1.5) Do not revise 
+            the extremized probability downward or upward afterward. The final answer should 
+            reflect the extremized result.
 
             The last thing you write is your final answer as: "Probability: ZZ%", 0-100
             """
